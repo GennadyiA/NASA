@@ -13,15 +13,15 @@ import coil.load
 import com.example.nasa.MainActivity
 import com.example.nasa.PictureOfTheDayData
 import com.example.nasa.R
-import com.example.nasa.databinding.FragmentPictureOfTheDayBinding
+//import com.example.nasa.databinding.FragmentPictureOfTheDayBinding
+import com.example.nasa.databinding.FragmentPictureOfTheDayStartBinding
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class PictureOfTheDayFragment : Fragment() {
-    private var _binding: FragmentPictureOfTheDayBinding? = null
+    private var _binding: FragmentPictureOfTheDayStartBinding? = null
     private val binding get() = _binding!!
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
-    //Ленивая инициализация модели
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider.NewInstanceFactory().create(PictureOfTheDayViewModel::class.java)
     }
@@ -31,7 +31,7 @@ class PictureOfTheDayFragment : Fragment() {
     ): View {
         viewModel.getData()
             .observe(viewLifecycleOwner) { renderData(it) }
-        _binding = FragmentPictureOfTheDayBinding.inflate(inflater, container, false)
+        _binding = FragmentPictureOfTheDayStartBinding.inflate(inflater, container, false)
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,32 +72,20 @@ class PictureOfTheDayFragment : Fragment() {
                 val explanation = serverResponseData.explanation
                 val url = serverResponseData.url
                 if (url.isNullOrEmpty()) {
-//Отобразите ошибку
-//showError("Сообщение, что ссылка пустая")
                     toast("Link is empty")
                 } else {
-//Отобразите фото
-//showSuccess()
-//Coil в работе: достаточно вызвать у нашего ImageView нужную
-//                    extension-функцию и передать ссылку на изображение
-//а в лямбде указать дополнительные параметры (не обязательно) для
-//                            отображения ошибки, процесса загрузки, анимации смены изображений
                     binding.imageView.load(url) {
                         lifecycle(this@PictureOfTheDayFragment)
                         error(R.drawable.ic_load_error_vector)
                         placeholder(R.drawable.ic_no_photo_vector)
                         crossfade(true)
                     }
-                    toast(explanation)
+                    //toast(explanation)
                 }
             }
             is PictureOfTheDayData.Loading -> {
-//Отобразите загрузку
-//showLoading()
             }
             is PictureOfTheDayData.Error -> {
-//Отобразите ошибку
-//showError(data.error.message)
                 toast(data.error.message)
             }
         }
