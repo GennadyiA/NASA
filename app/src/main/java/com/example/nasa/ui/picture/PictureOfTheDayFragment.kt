@@ -1,8 +1,15 @@
 package com.example.nasa.ui.picture
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.BackgroundColorSpan
+import android.text.style.ForegroundColorSpan
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -11,7 +18,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.example.nasa.R
-//import com.example.nasa.databinding.FragmentPictureOfTheDayBinding
 import com.example.nasa.databinding.FragmentPictureOfTheDayStartBinding
 import com.example.nasa.ui.main.MainActivity
 import com.example.nasa.ui.chips.ChipsFragment
@@ -44,6 +50,9 @@ class PictureOfTheDayFragment : Fragment() {
             })
         }
         setBottomAppBar(view)
+        activity?.let {
+            binding.textView.typeface = Typeface.createFromAsset(it.assets, "Xenosphere-WXgv.ttf")//
+        }
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -70,8 +79,8 @@ class PictureOfTheDayFragment : Fragment() {
         when (data) {
             is PictureOfTheDayData.Success -> {
                 val serverResponseData = data.serverResponseData
-                val explanation = serverResponseData.explanation
                 val url = serverResponseData.url
+                val text = serverResponseData.explanation
                 if (url.isNullOrEmpty()) {
                     toast("Link is empty")
                 } else {
@@ -81,7 +90,17 @@ class PictureOfTheDayFragment : Fragment() {
                         placeholder(R.drawable.ic_no_photo_vector)
                         crossfade(true)
                     }
-                    //toast(explanation)
+                }
+                if (text.isNullOrEmpty()) {
+                    toast("Explanation is empty")
+                } else {
+                    val spannable = SpannableString(text)
+                    spannable.setSpan(
+                        ForegroundColorSpan(Color.RED),36, 56,
+                        Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+                    )
+                    binding.textView.text = spannable
+                    //binding.textView.text = text
                 }
             }
             is PictureOfTheDayData.Loading -> {
@@ -89,10 +108,11 @@ class PictureOfTheDayFragment : Fragment() {
             is PictureOfTheDayData.Error -> {
                 toast(data.error.message)
             }
+
         }
     }
-    private fun setBottomAppBar(view: View) {
 
+    private fun setBottomAppBar(view: View) {
         val context = activity as MainActivity
         context.setSupportActionBar(view.findViewById(R.id.bottom_app_bar))
         setHasOptionsMenu(true)
