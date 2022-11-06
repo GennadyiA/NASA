@@ -1,14 +1,15 @@
-package com.example.nasa.ui.main
+package com.example.nasa.ui.picture
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.nasa.AnimationsActivity
-import com.example.nasa.AnimationsActivityBonus
+import com.example.nasa.ui.animations.AnimationsActivity
+import com.example.nasa.ui.animations.AnimationsActivityBonus
 import com.example.nasa.R
 import com.example.nasa.databinding.BottomNavigationLayoutBinding
+import com.example.nasa.ui.recycler.RecyclerActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
@@ -34,7 +35,16 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                     activity?.let { startActivity(Intent(it, AnimationsActivityBonus::class.java))
                     }
                 }
+                R.id.navigation_three -> activity?.let {
+                    startActivity(
+                        Intent(
+                            it,
+                            RecyclerActivity::class.java
+                        )
+                    )
+                }
             }
+            dismiss()
             true
         }
     }

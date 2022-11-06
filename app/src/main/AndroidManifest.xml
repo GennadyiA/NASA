@@ -16,7 +16,7 @@
         android:theme="@style/IndigoTheme"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,12 +24,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AnimationsActivity"
+            android:name=".ui.animations.AnimationsActivity"
             android:exported="true" />
         <activity
-            android:name=".AnimationsActivityBonus"
+            android:name=".ui.animations.AnimationsActivityBonus"
             android:exported="true" />
-
+        <activity
+            android:name=".ui.recycler.RecyclerActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.nasa
+package com.example.nasa.ui.picture
 
 sealed class PictureOfTheDayData {
     data class Success(val serverResponseData: PODServerResponseData) :

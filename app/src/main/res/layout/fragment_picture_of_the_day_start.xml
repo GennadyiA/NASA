@@ -51,7 +51,7 @@
                     android:inputType="text"
                     />
             </com.google.android.material.textfield.TextInputLayout>
-            <com.example.nasa.EquilateralImageView
+            <com.example.nasa.util.EquilateralImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

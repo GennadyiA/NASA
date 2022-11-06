@@ -1,4 +1,4 @@
-package com.example.nasa.ui.main
+package com.example.nasa.ui.picture
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,11 +10,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
-import com.example.nasa.MainActivity
-import com.example.nasa.PictureOfTheDayData
 import com.example.nasa.R
 //import com.example.nasa.databinding.FragmentPictureOfTheDayBinding
 import com.example.nasa.databinding.FragmentPictureOfTheDayStartBinding
+import com.example.nasa.ui.main.MainActivity
+import com.example.nasa.ui.chips.ChipsFragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
@@ -54,7 +54,8 @@ class PictureOfTheDayFragment : Fragment() {
             R.id.app_bar_fav -> toast("Favourite")
             R.id.app_bar_settings ->
                 activity?.supportFragmentManager?.beginTransaction()?.add(R.id.container,
-                    ChipsFragment())?.addToBackStack(null)
+                    ChipsFragment()
+                )?.addToBackStack(null)
                     ?.commit()
             android.R.id.home -> {
                 activity?.let {

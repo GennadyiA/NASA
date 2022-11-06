@@ -1,4 +1,4 @@
-package com.example.nasa
+package com.example.nasa.ui.animations
 
 import android.os.Bundle
 import android.view.animation.AnticipateOvershootInterpolator
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionManager
+import com.example.nasa.R
 import com.example.nasa.databinding.ActivityAnimationsBonusStartBinding
 
 class AnimationsActivityBonus : AppCompatActivity() {

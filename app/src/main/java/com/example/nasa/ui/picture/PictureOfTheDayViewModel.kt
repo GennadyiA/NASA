@@ -1,4 +1,4 @@
-package com.example.nasa.ui.main
+package com.example.nasa.ui.picture
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,9 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.example.nasa.BuildConfig
 
 
-import com.example.nasa.PODRetrofitImpl
-import com.example.nasa.PODServerResponseData
-import com.example.nasa.PictureOfTheDayData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

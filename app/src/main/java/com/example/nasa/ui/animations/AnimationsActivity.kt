@@ -1,4 +1,4 @@
-package com.example.nasa
+package com.example.nasa.ui.animations
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.motion.widget.MotionScene
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.*
+import com.example.nasa.R
 import com.example.nasa.databinding.ActivityAnimationsEnlargeBinding
-import com.example.nasa.databinding.ActivityAnimationsExplodeBinding
 
 
 class AnimationsActivity : AppCompatActivity() {

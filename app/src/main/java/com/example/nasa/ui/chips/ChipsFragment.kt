@@ -1,4 +1,4 @@
-package com.example.nasa.ui.main
+package com.example.nasa.ui.chips
 
 import android.os.Bundle
 import android.view.LayoutInflater
