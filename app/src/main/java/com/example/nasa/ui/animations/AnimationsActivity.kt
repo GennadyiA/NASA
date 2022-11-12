@@ -16,6 +16,7 @@ import com.example.nasa.databinding.ActivityAnimationsEnlargeBinding
 class AnimationsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAnimationsEnlargeBinding
     private var isExpanded = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAnimationsEnlargeBinding.inflate(layoutInflater)
@@ -28,15 +29,15 @@ class AnimationsActivity : AppCompatActivity() {
                     .addTransition(ChangeImageTransform())
             )
             val params: ViewGroup.LayoutParams = binding.imageView.layoutParams
-            params.height =
-                if (isExpanded) ViewGroup.LayoutParams.MATCH_PARENT else
-                    ViewGroup.LayoutParams.WRAP_CONTENT
+            params.height = if (isExpanded) ViewGroup.LayoutParams.MATCH_PARENT
+                            else ViewGroup.LayoutParams.WRAP_CONTENT
             binding.imageView.layoutParams = params
             binding.imageView.scaleType =
-                if (isExpanded) ImageView.ScaleType.CENTER_CROP else
-                    ImageView.ScaleType.FIT_CENTER
+                if (isExpanded) ImageView.ScaleType.CENTER_CROP
+                else ImageView.ScaleType.FIT_CENTER
         }
     }
+
     private fun explode(clickedView: View) {
         val viewRect = Rect()
         clickedView.getGlobalVisibleRect(viewRect)
@@ -57,22 +58,23 @@ class AnimationsActivity : AppCompatActivity() {
                 }
             })
     }
+
     private inner class Adapter : RecyclerView.Adapter<ViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
         {
             return ViewHolder(
                 LayoutInflater.from(parent.context).inflate(
-                    R.layout.activity_animations_explode_recycle_view_item,
-                    parent,
-                    false
+                    R.layout.activity_animations_explode_recycle_view_item, parent, false
                 ) as View
             )
         }
+
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             holder.itemView.setOnClickListener {
                 explode(it)
             }
         }
+
         override fun getItemCount(): Int {
             return 32
         }

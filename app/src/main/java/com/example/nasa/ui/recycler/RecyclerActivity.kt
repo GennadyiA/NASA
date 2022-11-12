@@ -12,6 +12,7 @@ class RecyclerActivity : AppCompatActivity() {
     lateinit var itemTouchHelper: ItemTouchHelper
     private var isNewList = false
     private lateinit var adapter: RecyclerActivityAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRecyclerBinding.inflate(layoutInflater)
@@ -22,8 +23,7 @@ class RecyclerActivity : AppCompatActivity() {
         adapter = RecyclerActivityAdapter(
             object : OnListItemClickListener {
                 override fun onItemClick(data: Data) {
-                    Toast.makeText(this@RecyclerActivity, data.someText,
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@RecyclerActivity, data.someText, Toast.LENGTH_SHORT).show()
                 }
             },
             data,
@@ -40,10 +40,12 @@ class RecyclerActivity : AppCompatActivity() {
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
         binding.recyclerActivityDiffUtilFAB.setOnClickListener { changeAdapterData() }
     }
+
     private fun changeAdapterData() {
         adapter.setItems(createItemList(isNewList).map { it })
         isNewList = !isNewList
     }
+
     private fun createItemList(instanceNumber: Boolean): List<Pair<Data, Boolean>> {
         return when (instanceNumber) {
             false -> listOf(

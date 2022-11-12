@@ -47,8 +47,7 @@ class RecyclerActivityAdapter(
         if (payloads.isEmpty())
             super.onBindViewHolder(holder, position, payloads)
         else {
-            val combinedChange =
-                createCombinedPayload(payloads as List<Change<Pair<Data, Boolean>>>)
+            val combinedChange = createCombinedPayload(payloads as List<Change<Pair<Data, Boolean>>>)
             val oldData = combinedChange.oldData
             val newData = combinedChange.newData
             if (newData.first.someText != oldData.first.someText) {
@@ -93,7 +92,6 @@ class RecyclerActivityAdapter(
     }
 
     inner class EarthViewHolder(view: View) : BaseViewHolder(view) {
-
         override fun bind(data: Pair<Data, Boolean>) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 itemView.findViewById<TextView>(R.id.descriptionTextView).text = data.first.someDescription
@@ -103,7 +101,6 @@ class RecyclerActivityAdapter(
     }
 
     inner class MarsViewHolder(view: View) : BaseViewHolder(view), ItemTouchHelperViewHolder {
-
         override fun bind(data: Pair<Data, Boolean>) {
             itemView.findViewById<ImageView>(R.id.marsImageView).setOnClickListener { onListItemClickListener.onItemClick(data.first) }
             itemView.findViewById<ImageView>(R.id.addItemImageView).setOnClickListener { addItem() }
@@ -118,7 +115,6 @@ class RecyclerActivityAdapter(
                 }
                 false
             }
-
         }
 
         private fun toggleText() {

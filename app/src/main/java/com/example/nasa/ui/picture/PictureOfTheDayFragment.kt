@@ -31,33 +31,37 @@ class PictureOfTheDayFragment : Fragment() {
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider.NewInstanceFactory().create(PictureOfTheDayViewModel::class.java)
     }
+    private val wikiUrl = "https://en.wikipedia.org/wiki/"
+    private val asset = "Xenosphere-WXgv.ttf"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel.getData()
-            .observe(viewLifecycleOwner) { renderData(it) }
+        viewModel.getData().observe(viewLifecycleOwner) { renderData(it) }
         _binding = FragmentPictureOfTheDayStartBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data =
-                    Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+                data = Uri.parse(wikiUrl + binding.inputEditText.text.toString())
             })
         }
         setBottomAppBar(view)
         activity?.let {
-            binding.textView.typeface = Typeface.createFromAsset(it.assets, "Xenosphere-WXgv.ttf")//
+            binding.textView.typeface = Typeface.createFromAsset(it.assets, asset)
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu, menu)
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.app_bar_fav -> toast("Favourite")
@@ -68,13 +72,13 @@ class PictureOfTheDayFragment : Fragment() {
                     ?.commit()
             android.R.id.home -> {
                 activity?.let {
-                    BottomNavigationDrawerFragment().show(it.supportFragmentManager,
-                        "tag")
+                    BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
                 }
             }
         }
         return super.onOptionsItemSelected(item)
     }
+
     private fun renderData(data: PictureOfTheDayData) {
         when (data) {
             is PictureOfTheDayData.Success -> {
@@ -100,7 +104,6 @@ class PictureOfTheDayFragment : Fragment() {
                         Spannable.SPAN_EXCLUSIVE_INCLUSIVE
                     )
                     binding.textView.text = spannable
-                    //binding.textView.text = text
                 }
             }
             is PictureOfTheDayData.Loading -> {
@@ -108,7 +111,6 @@ class PictureOfTheDayFragment : Fragment() {
             is PictureOfTheDayData.Error -> {
                 toast(data.error.message)
             }
-
         }
     }
 
@@ -120,38 +122,36 @@ class PictureOfTheDayFragment : Fragment() {
             if (isMain) {
                 isMain = false
                 binding.bottomAppBar.navigationIcon = null
-                binding.bottomAppBar.fabAlignmentMode =
-                    BottomAppBar.FAB_ALIGNMENT_MODE_END
-                binding.fab.setImageDrawable(ContextCompat.getDrawable(context,
-                    R.drawable.ic_back_fab))
+                binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
+                binding.fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_back_fab))
                 binding.bottomAppBar.replaceMenu(R.menu.menu_bottom_bar_other_screen)
             } else {
                 isMain = true
-                binding.bottomAppBar.navigationIcon =
-                    ContextCompat.getDrawable(context,
-                        R.drawable.ic_hamburger_menu_bottom_bar)
-                binding.bottomAppBar.fabAlignmentMode =
-                    BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
-                binding.fab.setImageDrawable(ContextCompat.getDrawable(context,
-                    R.drawable.ic_plus_fab))
+                binding.bottomAppBar.navigationIcon = ContextCompat.getDrawable(context, R.drawable.ic_hamburger_menu_bottom_bar)
+                binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+                binding.fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_plus_fab))
                 binding.bottomAppBar.replaceMenu(R.menu.menu)
             }
         }
     }
+
     private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
+
     private fun Fragment.toast(string: String?) {
         Toast.makeText(context, string, Toast.LENGTH_SHORT).apply {
             setGravity(Gravity.BOTTOM, 0, 250)
             show()
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
     companion object {
         fun newInstance() = PictureOfTheDayFragment()
         private var isMain = true

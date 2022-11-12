@@ -12,13 +12,16 @@ import com.example.nasa.databinding.ActivityAnimationsBonusStartBinding
 class AnimationsActivityBonus : AppCompatActivity() {
     private lateinit var binding: ActivityAnimationsBonusStartBinding
     private var show = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAnimationsBonusStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.backgroundImage.setOnClickListener { if (show) hideComponents() else
-            showComponents() }
+        binding.backgroundImage.setOnClickListener {
+            if (show) hideComponents()
+            else showComponents() }
     }
+
     private fun showComponents() {
         show = true
         val constraintSet = ConstraintSet()
@@ -26,10 +29,10 @@ class AnimationsActivityBonus : AppCompatActivity() {
         val transition = ChangeBounds()
         transition.interpolator = AnticipateOvershootInterpolator(1.0f)
         transition.duration = 1200
-        TransitionManager.beginDelayedTransition(binding.constraintContainer,
-            transition)
+        TransitionManager.beginDelayedTransition(binding.constraintContainer, transition)
         constraintSet.applyTo(binding.constraintContainer)
     }
+
     private fun hideComponents() {
         show = false
         val constraintSet = ConstraintSet()
@@ -37,8 +40,7 @@ class AnimationsActivityBonus : AppCompatActivity() {
         val transition = ChangeBounds()
         transition.interpolator = AnticipateOvershootInterpolator(1.0f)
         transition.duration = 1200
-        TransitionManager.beginDelayedTransition(binding.constraintContainer,
-            transition)
+        TransitionManager.beginDelayedTransition(binding.constraintContainer, transition)
         constraintSet.applyTo(binding.constraintContainer)
     }
 }

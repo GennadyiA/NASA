@@ -9,12 +9,11 @@ import android.view.ViewGroup
 import com.example.nasa.R
 
 class MainFragment : Fragment() {
+    private lateinit var viewModel: MainViewModel
 
     companion object {
         fun newInstance() = MainFragment()
     }
-
-    private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
